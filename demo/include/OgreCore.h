@@ -41,10 +41,10 @@ namespace Cutexture
 	static const QString SETTINGS_RENDERER_ENGINE_TYPE_KEY = "Type";
 	static const QString SETTINGS_RENDERER_ENGINE_TYPE_OPENGL_VAL = "OpenGL Rendering Subsystem";
 	static const QString SETTINGS_RENDERER_ENGINE_TYPE_D3D_VAL = "Direct3D9 Rendering Subsystem";
-#if defined(Q_WS_X11)
-	static const QString SETTINGS_RENDERER_ENGINE_TYPE_VAL = SETTINGS_RENDERER_ENGINE_TYPE_OPENGL_VAL;
-#elif defined(Q_WS_WIN)
-	static const QString SETTINGS_RENDERER_ENGINE_TYPE_VAL = SETTINGS_RENDERER_ENGINE_TYPE_D3D_VAL;
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+    static const QString SETTINGS_RENDERER_ENGINE_TYPE_VAL = SETTINGS_RENDERER_ENGINE_TYPE_D3D_VAL;
+#else
+    static const QString SETTINGS_RENDERER_ENGINE_TYPE_VAL = SETTINGS_RENDERER_ENGINE_TYPE_OPENGL_VAL;
 #endif
 	
 	
@@ -58,7 +58,15 @@ namespace Cutexture
 	//	static const QString SETTINGS_RENDERER_WINDOW_RESOLUTION_KEY = "Video Mode";
 
 	// engine-specific values
-#if defined(Q_WS_X11)
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+    static const QString SETTINGS_RENDERER_NV_PERF_HUD_KEY = "Allow NVPerfHUD";
+    static const QString SETTINGS_RENDERER_NV_PERF_HUD_VAL = "No";
+    static const QString SETTINGS_RENDERER_ANTIALIAS_KEY = "Anti aliasing";
+    static const QString SETTINGS_RENDERER_ANTIALIAS_VAL = "None";
+    static const QString SETTINGS_RENDERER_FLOATINGPOINT_MODE_KEY = "Floating-point mode";
+    static const QString SETTINGS_RENDERER_FLOATINGPOINT_MODE_VAL = "Fastest";
+    //	static const QString SETTINGS_RENDERER_WINDOW_RESOLUTION_VAL = "1280 x  720 @ 32-bit colour";
+#else
 	//	static const QString SETTINGS_RENDERER_DISPLAY_FREQUENCY_KEY = "Display Frequency";
 	//	static const QString SETTINGS_RENDERER_DISPLAY_FREQUENCY_VAL = "60 MHz";
 	static const QString SETTINGS_RENDERER_FULLSCREEN_ANTIALIAS_KEY = "FSAA";
@@ -66,14 +74,6 @@ namespace Cutexture
 	static const QString SETTINGS_RENDERER_RENDER_TO_TEXTURE_MODE_KEY = "RTT Preferred Mode";
 	static const QString SETTINGS_RENDERER_RENDER_TO_TEXTURE_MODE_VAL = "FBO";
 	//	static const QString SETTINGS_RENDERER_WINDOW_RESOLUTION_VAL = "1280 x  720";
-#elif defined(Q_WS_WIN)
-	static const QString SETTINGS_RENDERER_NV_PERF_HUD_KEY = "Allow NVPerfHUD";
-	static const QString SETTINGS_RENDERER_NV_PERF_HUD_VAL = "No";
-	static const QString SETTINGS_RENDERER_ANTIALIAS_KEY = "Anti aliasing";
-	static const QString SETTINGS_RENDERER_ANTIALIAS_VAL = "None";
-	static const QString SETTINGS_RENDERER_FLOATINGPOINT_MODE_KEY = "Floating-point mode";
-	static const QString SETTINGS_RENDERER_FLOATINGPOINT_MODE_VAL = "Fastest";
-	//	static const QString SETTINGS_RENDERER_WINDOW_RESOLUTION_VAL = "1280 x  720 @ 32-bit colour";
 #endif
 	
 	

@@ -31,7 +31,7 @@
 #include "InputManager.h"
 #include "ViewManager.h"
 
-template<> Cutexture::OgreCore* Ogre::Singleton<Cutexture::OgreCore>::ms_Singleton = 0;
+template<> Cutexture::OgreCore* Ogre::Singleton<Cutexture::OgreCore>::msSingleton = 0;
 
 namespace Cutexture
 {
@@ -139,9 +139,8 @@ namespace Cutexture
 	{
 		unsigned int currWidth = 0;
 		unsigned int currHeight = 0;
-		unsigned int unused = 0;
 		int unused2 = 0;
-		getOgreRenderWindow()->getMetrics(currWidth, currHeight, unused, unused2, unused2);
+        getOgreRenderWindow()->getMetrics(currWidth, currHeight, unused2, unused2);
 		
 		
 		// if the window size has changed

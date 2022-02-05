@@ -33,11 +33,11 @@
 #include "Settings.h"
 #include <iostream>
 
-#include <QWebView>
+#include <QtWebEngineWidgets/QWebEngineView>
 
 using namespace std;
 
-template<> Cutexture::Core* Ogre::Singleton<Cutexture::Core>::ms_Singleton = 0;
+template<> Cutexture::Core* Ogre::Singleton<Cutexture::Core>::msSingleton = 0;
 
 namespace Cutexture
 {
@@ -80,7 +80,7 @@ namespace Cutexture
 		QWidget *ui = loadUiFile("game.ui");
 		ui->setAttribute(Qt::WA_TranslucentBackground);
 		
-		QWebView *web  = new QWebView();
+        QWebEngineView *web  = new QWebEngineView();
 		web->load(QUrl("http://mrdoob.com/projects/chromeexperiments/ball_pool/"));
 		ui->layout()->addWidget(web);
 
@@ -94,7 +94,7 @@ namespace Cutexture
 		mGame = new Game();
 		mGame->setInputManager(mInputManager);
 		
-		Ogre::WindowEventUtilities::messagePump();
+        Ogre::WindowEventUtilities::messagePump();
 		
 		
 		// launch other threads here

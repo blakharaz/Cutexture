@@ -26,7 +26,7 @@
 #include "Settings.h"
 #include "DemoConstants.h"
 
-template<> Cutexture::Settings* Ogre::Singleton<Cutexture::Settings>::ms_Singleton = 0;
+template<> Cutexture::Settings* Ogre::Singleton<Cutexture::Settings>::msSingleton = 0;
 
 namespace Cutexture
 {

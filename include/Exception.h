@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <OgreString.h>
+#include <OGRE/OgreString.h>
 
 namespace Cutexture
 {

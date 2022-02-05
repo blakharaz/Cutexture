@@ -111,10 +111,10 @@ namespace Cutexture
 			
 			
 			//Set mouse clipping area
-			unsigned int width, height, depth;
+            unsigned int width, height;
 			int left, top;
 			
-			aRenderWindow->getMetrics(width, height, depth, left, top);
+            aRenderWindow->getMetrics(width, height, left, top);
 			mOisMouse->getMouseState().width = width;
 			mOisMouse->getMouseState().height = height;
 			mOisMouse->setEventCallback(this);

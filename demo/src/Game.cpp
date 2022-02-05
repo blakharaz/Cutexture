@@ -37,7 +37,7 @@
 using namespace Cutexture::Constants;
 using namespace Cutexture::Enums;
 
-template<> Cutexture::Game* Ogre::Singleton<Cutexture::Game>::ms_Singleton = 0;
+template<> Cutexture::Game* Ogre::Singleton<Cutexture::Game>::msSingleton = 0;
 
 namespace Cutexture
 {

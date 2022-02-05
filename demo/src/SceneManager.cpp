@@ -35,7 +35,7 @@
 
 using namespace Ogre;
 
-template<> Cutexture::SceneManager* Ogre::Singleton<Cutexture::SceneManager>::ms_Singleton = 0;
+template<> Cutexture::SceneManager* Ogre::Singleton<Cutexture::SceneManager>::msSingleton = 0;
 
 namespace Cutexture
 {
@@ -43,7 +43,7 @@ namespace Cutexture
 	{
 		// Create the Ogre SceneManager, in this case a generic one. Ogre::Root will hold onto the 
 		// reference so we don't need to keep it around.
-		Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC,
+        Ogre::Root::getSingleton().createSceneManager("generic",
 				DemoConstants::SCENE_MANAGER_NAME);
 		
 		// create a material
@@ -90,7 +90,7 @@ namespace Cutexture
 		Ogre::SceneNode *groundNode = sceneManager->getRootSceneNode()->createChildSceneNode();
 		groundNode->attachObject(groundEnt);
 		
-		ViewManager::getSingletonPtr()->getPrimaryViewport()->getCamera()->lookAt(
+        ViewManager::getSingletonPtr()->getPrimaryViewport()->getCamera()->lookAt(
 				groundNode->getPosition());
 	}
 	
@@ -113,7 +113,7 @@ namespace Cutexture
 		
 
 		// assign to mini screen
-		miniScreen->setMaterial("RttMat");
+//		miniScreen->setMaterial("RttMat");
 		
 		Ogre::TexturePtr txtr = Ogre::TextureManager::getSingleton().createManual(
 				UI_TEXTURE_NAME, "General", Ogre::TEX_TYPE_2D, 512, 512, 0,

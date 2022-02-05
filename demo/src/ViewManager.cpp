@@ -27,7 +27,7 @@
 
 using namespace Ogre;
 
-template<> Cutexture::ViewManager* Ogre::Singleton<Cutexture::ViewManager>::ms_Singleton = 0;
+template<> Cutexture::ViewManager* Ogre::Singleton<Cutexture::ViewManager>::msSingleton = 0;
 
 namespace Cutexture
 {
