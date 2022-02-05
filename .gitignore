@@ -7,3 +7,4 @@ moc_*.cxx
 cmake_install.cmake
 CUTEXTURE
 output
+CMakeLists.txt.user
