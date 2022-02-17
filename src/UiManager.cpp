@@ -111,14 +111,14 @@ namespace Cutexture
 	
 	void UiManager::resizeTexture(const QSize &aSize, const Ogre::MaterialPtr &aMaterial, const Ogre::TexturePtr &aTexture)
 	{
-		assert(!aMaterial.isNull());
-		assert(!aTexture.isNull());
+        assert(aMaterial != nullptr);
+        assert(aTexture != nullptr);
 		
 		// get the smallest power of two dimension that is at least as large as the new UI size
 		Ogre::uint newTexWidth = nextHigherPowerOfTwo(aSize.width());
 		Ogre::uint newTexHeight = nextHigherPowerOfTwo(aSize.height());
 	
-		if (!aTexture.isNull())
+        if (aTexture != nullptr)
 		{
 			std::string txtrName = aTexture->getName();
 			
@@ -224,7 +224,7 @@ namespace Cutexture
 	
 	bool UiManager::isViewSizeMatching(const Ogre::TexturePtr &aTexture) const
 	{
-		assert(!aTexture.isNull());
+        assert(aTexture != nullptr);
 		
 		return (aTexture->getWidth() == mWidgetView->width() && aTexture->getHeight() == mWidgetView->height());
 	}
@@ -232,7 +232,7 @@ namespace Cutexture
 	void UiManager::setViewSize(const Ogre::TexturePtr &aTexture)
 	{
 		// make sure that the view size matches the texture size
-		if (!aTexture.isNull() && !isViewSizeMatching(aTexture))
+        if (aTexture != nullptr && !isViewSizeMatching(aTexture))
 		{
 			mWidgetView->setGeometry(QRect(0, 0, aTexture->getWidth(), aTexture->getHeight()));
 		}
@@ -240,7 +240,7 @@ namespace Cutexture
 	
 	void UiManager::renderIntoTexture(const Ogre::TexturePtr &aTexture)
 	{
-		assert(!aTexture.isNull());
+        assert(aTexture != nullptr);
 		assert(isViewSizeMatching(aTexture));
 		
 		Ogre::HardwarePixelBufferSharedPtr hwBuffer = aTexture->getBuffer(0, 0);
