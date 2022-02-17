@@ -85,7 +85,7 @@ namespace Cutexture
 		pluginsPath = resourcePath + "plugins.cfg";
 #endif
 		mOgreRoot = new Ogre::Root();
-		
+        Ogre::LogManager::getSingleton().createLog("Cutexture demo", true, true, true);
 		setupResources(resourcePath);
 		
 		if (!setupRenderer())

@@ -32,6 +32,7 @@
 #include "DemoConstants.h"
 
 #include <OgreManualObject.h>
+#include <OgreDeprecated.h>
 
 using namespace Ogre;
 
@@ -43,7 +44,7 @@ namespace Cutexture
 	{
 		// Create the Ogre SceneManager, in this case a generic one. Ogre::Root will hold onto the 
 		// reference so we don't need to keep it around.
-        Ogre::Root::getSingleton().createSceneManager("generic",
+        Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC,
 				DemoConstants::SCENE_MANAGER_NAME);
 		
 		// create a material

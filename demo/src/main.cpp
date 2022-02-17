@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 		//Rendering error
 		Ogre::String fullDesc = "OGRE exception at \"" + e.getSource() + "\" in \"" + e.getFile()
 				+ "\": " + e.getDescription();
-		Ogre::LogManager::getSingleton().logMessage("Error: " + fullDesc);
+//		Ogre::LogManager::getSingleton().logMessage("Error: " + fullDesc);
 		
 		return 1;
 	}
