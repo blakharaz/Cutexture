@@ -11,7 +11,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_ROOT}/Modules;${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 ######################################################################
 
 # Find QT and provide a hint on where it might be
-find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets QuickWidgets QUIET)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Widgets QuickWidgets QUIET)
 
 message("Using Qt version ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}.")
 
@@ -19,7 +20,7 @@ find_package(OGRE REQUIRED)
 
 find_package(OIS REQUIRED)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_AUTOMOC ON)
