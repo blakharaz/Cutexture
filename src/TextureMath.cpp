@@ -23,7 +23,7 @@
  THE SOFTWARE.
  */
 
-#pragma once
+#include "TextureMath.h"
 
 namespace Cutexture
 {
@@ -33,6 +33,18 @@ namespace Cutexture
 		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
 		 *  alternative algorithm.
 		 */
-        inline int nextHigherPowerOfTwo(int aValue);
+		int nextHigherPowerOfTwo(int aValue)
+		{
+			--aValue;
+			
+			int retValue = 1;
+			
+			while (retValue < aValue)
+			{
+				retValue <<= 1;
+			}
+			
+			return retValue;
+		}
 	}
 }

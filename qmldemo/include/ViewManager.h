@@ -25,14 +25,43 @@
 
 #pragma once
 
+#include "Prerequisites.h"
+
 namespace Cutexture
 {
-	namespace Utility
+	/** Manages the views on a render window
+	 */
+	class ViewManager: public Ogre::Singleton<ViewManager>
 	{
-		/** @return The next higher power of two.
-		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
-		 *  alternative algorithm.
+	public:
+		ViewManager(Ogre::RenderWindow& aRenderWindow);
+		virtual ~ViewManager();
+
+		/** Returns the current wireframe status
 		 */
-        inline int nextHigherPowerOfTwo(int aValue);
-	}
+		bool getIsWireframe() const
+		{
+			return mIsWireframe;
+		}
+		
+		
+		/** Sets the wireframe status for all views attached 
+		 to the render window.
+		 */
+		void setIsWireframe(const bool &aIsWireframe);
+
+		inline const Ogre::Viewport* const getPrimaryViewport() const
+		{
+			return mPrimaryViewport;
+		}
+		
+		
+		/** Creates the default viewport on the render window 
+		 */
+		void createDefaultView(Ogre::Camera * const aCamera);
+	protected:
+		bool mIsWireframe;
+		Ogre::RenderWindow* const mRenderWindow;
+		Ogre::Viewport* mPrimaryViewport;
+	};
 }

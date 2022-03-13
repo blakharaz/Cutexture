@@ -11,8 +11,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_ROOT}/Modules;${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 ######################################################################
 
 # Find QT and provide a hint on where it might be
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets QuickWidgets QUIET)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets QuickWidgets QUIET)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Qml Quick UiTools QUIET)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Qml Quick UiTools QUIET)
 
 message("Using Qt version ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}.")
 
@@ -40,12 +40,20 @@ set(CUTEXTURE_INCLUDE_DIR
 # Configure sources                                                  #
 ######################################################################
 
-set(CUTEXTURE_SOURCES src/Exception.cpp src/InputManager.cpp src/UiManager.cpp)
+set(CUTEXTURE_SOURCES
+    src/Exception.cpp
+    src/InputManager.cpp
+    src/QmlUiManager.cpp
+    src/UiManager.cpp
+    src/TextureMath.cpp
+)
 AUX_SOURCE_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/src" CUTEXTURE_SOURCES)
 
 set(CUTEXTURE_MOC_HEADERS
+    ${CUTEXTURE_INCLUDE_DIR}/QmlUiManager.h
     ${CUTEXTURE_INCLUDE_DIR}/UiManager.h
     ${CUTEXTURE_INCLUDE_DIR}/InputManager.h
+    ${CUTEXTURE_INCLUDE_DIR}/TextureMath.h
 )
 
 ######################################################################
@@ -56,7 +64,7 @@ add_library(
         cutexture SHARED ${CUTEXTURE_SOURCES} ${CUTEXTURE_MOC_SOURCES} ${CUTEXTURE_MOC_HEADERS}
 )
 
-target_link_libraries(cutexture OgreMain Qt::Core Qt::Gui)
+target_link_libraries(cutexture OgreMain Qt::Core Qt::Gui Qt::UiTools Qt::Qml Qt::Quick)
 target_include_directories(cutexture PUBLIC ${CUTEXTURE_INCLUDE_DIR})
 
 install(
@@ -74,4 +82,5 @@ install(
 # Configure demo project                                             #
 ######################################################################
 
-add_subdirectory(demo)
+#add_subdirectory(demo)
+add_subdirectory(qmldemo)

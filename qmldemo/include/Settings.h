@@ -23,16 +23,39 @@
  THE SOFTWARE.
  */
 
-#pragma once
+#ifndef SETTINGS_H_
+#define SETTINGS_H_
+
+#include "Prerequisites.h"
 
 namespace Cutexture
 {
-	namespace Utility
+	
+	
+	/** Allows loading and writing configuration values 
+	 * to/from persistent storage. */
+	class Settings: public Ogre::Singleton<Settings>
 	{
-		/** @return The next higher power of two.
-		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
-		 *  alternative algorithm.
+	public:
+		Settings();
+		virtual ~Settings();
+
+		QVariant getValue(const QString &category, const QString &key,
+				const QVariant &defaultValue = QVariant()) const;
+
+		QHash<QString, QVariant> getCategoryValues(const QString &category) const;
+
+		/** Adds each given default value to the settings store unless a 
+		 * value already exists in the store.
+		 * @param aCategory
+		 * @param aDefaults Key,value pairs of defaults.
 		 */
-        inline int nextHigherPowerOfTwo(int aValue);
-	}
+		void setDefaultValues(const QString &aCategory, const QHash<QString, QVariant> &aDefaults);
+
+	private:
+		QSettings *mQtSettings;
+	};
+
 }
+
+#endif /* SETTINGS_H_ */

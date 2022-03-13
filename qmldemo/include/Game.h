@@ -25,14 +25,32 @@
 
 #pragma once
 
+#include "Prerequisites.h"
+
 namespace Cutexture
 {
-	namespace Utility
+	/** Holds all the game logic, e.g. object movement. */
+	class Game: public QObject, public Ogre::Singleton<Game>
 	{
-		/** @return The next higher power of two.
-		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
-		 *  alternative algorithm.
-		 */
-        inline int nextHigherPowerOfTwo(int aValue);
-	}
+	Q_OBJECT
+
+	public:
+		Game();
+		virtual ~Game();
+
+		void setInputManager(InputManager *aInputManager);
+		
+		void applyGameLogic();
+
+	public slots:
+		/** Performs a shutdown of the game logic and then triggers 
+		 * a shutdown of the application framework.
+		 * @see Core::shutdown() */
+		void initiateShutdown();
+
+		void keyPressEvent(QKeyEvent *event);
+		
+	private:
+		InputManager *mInputManager;
+	};
 }

@@ -25,14 +25,20 @@
 
 #pragma once
 
+#include <OgreString.h>
+#include <OgreCommon.h>
+#include <QtCore/QString>
+
 namespace Cutexture
 {
-	namespace Utility
+	/** Centrally defines application-wide constants to reduce 
+	 * cross-referencing between components. */
+	namespace DemoConstants
 	{
-		/** @return The next higher power of two.
-		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
-		 *  alternative algorithm.
-		 */
-        inline int nextHigherPowerOfTwo(int aValue);
+		static const Ogre::String SCENE_MANAGER_NAME = "SceneManager";
+		
+		static const QString SETTINGS_FILENAME = "CutextureSettings.ini";
+		
+		static const Ogre::Real MOVEMENT_RATE_PER_SECOND = 10.0; // 10 meters per second.
 	}
 }

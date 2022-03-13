@@ -23,16 +23,47 @@
  THE SOFTWARE.
  */
 
-#pragma once
+#include "Core.h"
+#include "Exception.h"
 
-namespace Cutexture
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
+
+int main(int argc, char *argv[])
 {
-	namespace Utility
+	QApplication app(argc, argv);
+	
+	QScopedPointer<Cutexture::Core> corePtr;
+	
+	try
 	{
-		/** @return The next higher power of two.
-		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
-		 *  alternative algorithm.
-		 */
-        inline int nextHigherPowerOfTwo(int aValue);
+		//Run the game
+		corePtr.reset(new Cutexture::Core());
+		// blocking call; we advance Qt's event loop in this method; no need to call app.exec()
+		corePtr->go();
+		
+		qDebug("finished");
+//		Ogre::LogManager::getSingleton().logMessage("Cutexture finished running, exiting...");
+		
+		return 0;
+	}
+	catch (Ogre::Exception &e)
+	{
+		//Rendering error
+		Ogre::String fullDesc = "OGRE exception at \"" + e.getSource() + "\" in \"" + e.getFile()
+				+ "\": " + e.getDescription();
+//		Ogre::LogManager::getSingleton().logMessage("Error: " + fullDesc);
+		
+		return 1;
+	}
+	catch (Cutexture::Exception &e)
+	{
+		//Game engine error
+		Ogre::LogManager::getSingleton().logMessage("Error: " + e.getFullDescription());
+		
+		return 1;
 	}
 }
+

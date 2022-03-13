@@ -25,14 +25,25 @@
 
 #pragma once
 
+#include "Prerequisites.h"
+
 namespace Cutexture
 {
-	namespace Utility
+	/** Exposes public methods to sleep the calling thread. */
+	class SleepThread: public QThread
 	{
-		/** @return The next higher power of two.
-		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
-		 *  alternative algorithm.
-		 */
-        inline int nextHigherPowerOfTwo(int aValue);
-	}
+	public:
+		inline static void sleep(unsigned long secs)
+		{
+			QThread::sleep(secs);
+		}
+		inline static void msleep(unsigned long msecs)
+		{
+			QThread::msleep(msecs);
+		}
+		inline static void usleep(unsigned long usecs)
+		{
+			QThread::usleep(usecs);
+		}
+	};
 }

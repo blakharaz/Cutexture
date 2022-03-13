@@ -25,14 +25,22 @@
 
 #pragma once
 
+#include "Prerequisites.h"
+
 namespace Cutexture
 {
-	namespace Utility
+	class SceneManager: public Ogre::Singleton<SceneManager>
 	{
-		/** @return The next higher power of two.
-		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
-		 *  alternative algorithm.
-		 */
-        inline int nextHigherPowerOfTwo(int aValue);
-	}
+	public:
+		SceneManager();
+		virtual ~SceneManager();
+
+		void setupDefaultScene();
+
+		/** Sets up the scene geometry, materials and textures required 
+		 * for rendering the user interface. */
+		void setupUserInterfaceElements();
+
+	protected:
+	};
 }
