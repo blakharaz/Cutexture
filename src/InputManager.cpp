@@ -781,7 +781,7 @@ namespace Cutexture
 		case OIS::MB_Left:
 			return Qt::LeftButton;
 		case OIS::MB_Middle:
-			return Qt::MidButton;
+            return Qt::MiddleButton;
 		case OIS::MB_Right:
 			return Qt::RightButton;
 		default:

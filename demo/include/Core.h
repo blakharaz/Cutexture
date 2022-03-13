@@ -66,7 +66,7 @@ namespace Cutexture
 		 * nanosecond timing.
 		 * @see Chapter 7.5.6 Game Engine Architecture book
 		 * @see man clock_gettime(3) for Linux */
-		QTime mFrameTime;
+        QElapsedTimer mFrameTime;
 
 		/** Stores how long it took for the previous game loop 
 		 * iteration to execute, as a fraction of one second.

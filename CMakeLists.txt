@@ -11,8 +11,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_ROOT}/Modules;${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 ######################################################################
 
 # Find QT and provide a hint on where it might be
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets QuickWidgets QUIET)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Widgets QuickWidgets QUIET)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets QuickWidgets QUIET)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets QuickWidgets QUIET)
 
 message("Using Qt version ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}.")
 
@@ -56,7 +56,7 @@ add_library(
         cutexture SHARED ${CUTEXTURE_SOURCES} ${CUTEXTURE_MOC_SOURCES} ${CUTEXTURE_MOC_HEADERS}
 )
 
-target_link_libraries(cutexture OgreMain Qt::Core)
+target_link_libraries(cutexture OgreMain Qt::Core Qt::Gui)
 target_include_directories(cutexture PUBLIC ${CUTEXTURE_INCLUDE_DIR})
 
 install(

@@ -1,6 +1,7 @@
 #set(DEMO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/demo)
 
-find_package(Qt5 COMPONENTS Core Widgets WebEngine WebEngineWidgets UiTools REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets WebChannel WebEngineCore WebEngineWidgets UiTools QUIET)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Widgets WebChannel WebEngineCore WebEngineWidgets UiTools REQUIRED)
 
 message("Using Qt version ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}.")
 
@@ -47,7 +48,7 @@ add_executable(
 )
 
 target_link_libraries(
-    cutexture_demo cutexture OIS OgreBites Qt5::Core Qt5::Widgets Qt5::WebEngineWidgets Qt5::UiTools
+    cutexture_demo cutexture OIS OgreBites Qt::Core Qt::Widgets Qt::WebEngineWidgets Qt::UiTools
 )
 
 target_include_directories(cutexture_demo PRIVATE include)
