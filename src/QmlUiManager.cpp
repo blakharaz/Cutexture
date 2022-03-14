@@ -31,8 +31,10 @@
 
 #include <OGRE/RenderSystems/GL/OgreGLTextureCommon.h>
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QtQuick/QQuickGraphicsDevice>
 #include <QtQuick/QQuickRenderTarget>
+#endif
 
 using namespace Cutexture::Utility;
 
@@ -208,42 +210,64 @@ namespace Cutexture
             mQuickWindow->setGeometry(QRect(0, 0, aTexture->getWidth(), aTexture->getHeight()));
 		}
 	}
-	
-    void QmlUiManager::renderIntoTexture(const Ogre::TexturePtr &aTexture)
+
+    void QmlUiManager::initialize(const Ogre::TexturePtr &aTexture)
+    {
+        mOgreTexture = aTexture;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        if (!mRenderControl->initialize())
+        {
+            qWarning("Failed to initialize redirected Qt Quick rendering");
+        }
+#else
+        //        if (!mRenderControl->initialize())
+        //        {
+        //            qWarning("Failed to initialize redirected Qt Quick rendering");
+        //        }
+#endif
+
+        auto glTexture = std::static_pointer_cast<Ogre::GLTextureCommon>(aTexture);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        mQuickWindow->setRenderTarget(
+            QQuickRenderTarget::fromOpenGLTexture(glTexture->getGLID(),
+                                                  QSize(glTexture->getWidth(), glTexture->getHeight()),
+                                                  glTexture->getFSAA()));
+#else
+        mQuickWindow->setRenderTarget(glTexture->getGLID(), QSize(glTexture->getWidth(), glTexture->getHeight()));
+#endif
+
+        mInitialized = true;
+    }
+
+    void QmlUiManager::renderIntoTexture()
 	{
-        assert(aTexture != nullptr);
-		assert(isViewSizeMatching(aTexture));
+        assert(mOgreTexture != nullptr);
+        assert(isViewSizeMatching(mOgreTexture));
 		
-		Ogre::HardwarePixelBufferSharedPtr hwBuffer = aTexture->getBuffer(0, 0);
+        Ogre::HardwarePixelBufferSharedPtr hwBuffer = mOgreTexture->getBuffer(0, 0);
 		hwBuffer->lock(Ogre::HardwareBuffer::HBL_DISCARD);
 		
 		const Ogre::PixelBox &pb = hwBuffer->getCurrentLock();
 
         if (!mInitialized) {
-//            mQuickWindow->setGraphicsDevice(QQuickGraphicsDevice::fromOpenGLContext(aTexture->));
-
-            if (!mRenderControl->initialize())
-            {
-                qWarning("Failed to initialize redirected Qt Quick rendering");
-            }
-
-            auto glTexture = std::dynamic_pointer_cast<Ogre::GLTextureCommon>(aTexture);
-
-            mQuickWindow->setRenderTarget(
-                QQuickRenderTarget::fromOpenGLTexture(glTexture->getGLID(),
-                                                      QSize(glTexture->getWidth(), glTexture->getHeight()),
-                                                      glTexture->getFSAA()));
-
-            mInitialized = true;
+            // TODO: Throw
         }
 
         mRenderControl->polishItems();
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         mRenderControl->beginFrame();
+#endif
+
         mRenderControl->sync();
         mRenderControl->render();
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         mRenderControl->endFrame(); // Qt Quick's rendering commands are submitted to the device context here
-		
+#endif
+
 		// render into texture buffer		
 		hwBuffer->unlock();
 	}

@@ -76,7 +76,7 @@ namespace Cutexture
 		mInputManager->initialize(mOgreCore->getOgreRenderWindow());
 		
 		mOgreCore->setupUserInterface();
-		
+        mOgreCore->getUiManager()->initialize(Ogre::TextureManager::getSingletonPtr()->getByName(UI_TEXTURE_NAME));
         mOgreCore->getUiManager()->loadQml(QUrl("qrc:game.qml"));
 		
 		mOgreCore->getUiManager()->setInputManager(mInputManager);
@@ -120,7 +120,7 @@ namespace Cutexture
             auto *uiMan = mOgreCore->getUiManager();
 			if (uiMan->isUiDirty())
 			{
-				uiMan->renderIntoTexture(Ogre::TextureManager::getSingletonPtr()->getByName(UI_TEXTURE_NAME));
+                uiMan->renderIntoTexture();
 				uiMan->setUiDirty(false);
 			}
 			

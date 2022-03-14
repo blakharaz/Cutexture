@@ -33,6 +33,6 @@ namespace Cutexture
 		 *  @see http://en.wikipedia.org/wiki/Power_of_two for an
 		 *  alternative algorithm.
 		 */
-        inline int nextHigherPowerOfTwo(int aValue);
+        int nextHigherPowerOfTwo(int aValue);
 	}
 }

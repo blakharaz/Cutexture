@@ -53,10 +53,14 @@ namespace Cutexture
 		
 		/** @return True, if the UI texture needs to be repainted. */
 		inline bool isUiDirty() const { return mUiDirty; }
+
+        /** Initialize rendering into the texture specified by aTexture. */
+        void initialize(const Ogre::TexturePtr &aTexture);
 		
-		/** Renders mTopLevelWidget into the texture specified by 
-		 * aTexture. */
-		void renderIntoTexture(const Ogre::TexturePtr &aTexture);
+        /** Renders QML scenegraph into texture
+         * Note: initialize must have been called before
+         */
+        void renderIntoTexture();
 
 		/** Recreates the texture aTexture with a power-of-two 
 		 * sized texture whose size is greater or equal to aSize.
@@ -119,5 +123,7 @@ namespace Cutexture
 		/** Pointer to InputManager which provides input events to 
 		 * the UI. */
 		InputManager *mInputManager;
+
+        Ogre::TexturePtr mOgreTexture;
 	};
 }
