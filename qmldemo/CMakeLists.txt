@@ -23,7 +23,9 @@ set(CUTEXTURE_QMLDEMO_SOURCES
     src/ViewManager.cpp
     src/Game.cpp
     src/OgreCore.cpp
-    src/Settings.cpp)
+    src/Settings.cpp
+    qml/qml.qrc
+)
 
 
 AUX_SOURCE_DIRECTORY("src" CUTEXTURE_QMLDEMO_SOURCES)
@@ -41,12 +43,19 @@ set(CUTEXTURE_QMLDEMO_HEADERS
 # Configure application outputs									     #
 ######################################################################
 
-add_executable(
-    cutexture_qmldemo ${CUTEXTURE_QMLDEMO_SOURCES} ${CUTEXTURE_QMLDEMO_HEADERS}
-)
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(cutexture_qmldemo
+        MANUAL_FINALIZATION
+        ${CUTEXTURE_QMLDEMO_SOURCES} ${CUTEXTURE_QMLDEMO_HEADERS}
+    )
+else()
+    add_executable(
+        cutexture_qmldemo ${CUTEXTURE_QMLDEMO_SOURCES} ${CUTEXTURE_QMLDEMO_HEADERS}
+    )
+endif()
 
 target_link_libraries(
-    cutexture_qmldemo cutexture OIS OgreBites Qt::Core Qt::Quick Qt::Qml
+    cutexture_qmldemo PRIVATE cutexture OIS OgreBites Qt::Core Qt::Quick Qt::Qml
 )
 
 target_include_directories(cutexture_qmldemo PRIVATE include)
@@ -88,3 +97,8 @@ install(FILES ${CUTEXTURE_OGRE_RESOURCES}
 	DESTINATION ${CUTEXTURE_INSTALL_DIR}
 	RENAME resources.cfg
 )
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_import_qml_plugins(cutexture_qmldemo)
+    qt_finalize_executable(cutexture_qmldemo)
+endif()

@@ -77,7 +77,7 @@ namespace Cutexture
 		
 		mOgreCore->setupUserInterface();
         mOgreCore->getUiManager()->initialize(Ogre::TextureManager::getSingletonPtr()->getByName(UI_TEXTURE_NAME));
-        mOgreCore->getUiManager()->loadQml(QUrl("qrc:game.qml"));
+        mOgreCore->getUiManager()->loadQml(QUrl("qrc:/main.qml"));
 		
 		mOgreCore->getUiManager()->setInputManager(mInputManager);
 		

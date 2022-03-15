@@ -31,6 +31,8 @@
 
 #include <OGRE/RenderSystems/GL/OgreGLTextureCommon.h>
 
+#include <QtQuick/QQuickItem>
+
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QtQuick/QQuickGraphicsDevice>
 #include <QtQuick/QQuickRenderTarget>
